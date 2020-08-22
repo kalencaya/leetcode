@@ -5,7 +5,7 @@ import scala.language.postfixOps
 
 /**
   * 56. Merge Intervals medium
-  * tags: Array Sort
+  * tags: Array, Sort
   */
 object MergeIntervals56ScalaExample {
 
