@@ -26,9 +26,29 @@ object LongestCommonPrefix14ScalaExample {
         minStr
     }
 
+    def longestCommonPrefix2(strs: Array[String]): String = {
+        if (strs == null || strs.length == 0) {
+            return ""
+        }
+        if (strs.length == 1) {
+            return strs(0)
+        }
+        val sortedStrs = strs.sortBy(_.length)
+        var prefix = sortedStrs(0)
+        for (str <- sortedStrs) {
+            if (prefix.length == 0) {
+                return prefix
+            }
+            while (prefix.length > 0 && !str.startsWith(prefix)) {
+                prefix = prefix.substring(0, prefix.length - 1)
+            }
+        }
+        prefix
+    }
+
     def main(args: Array[String]): Unit = {
-        val strs = Array("c", "c")
-        val result = longestCommonPrefix(strs)
+        val strs = Array("ca", "a")
+        val result = longestCommonPrefix2(strs)
         println(result)
     }
 
