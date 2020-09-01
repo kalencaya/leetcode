@@ -14,9 +14,7 @@ object BinarySearchTreeIterator173ScalaExample {
     class BSTIterator(_root: TreeNode) {
 
         var root = _root
-
         var kth = 1
-
         val map: mutable.HashMap[TreeNode, Int] = new mutable.HashMap()
 
         /** @return the next smallest number */
@@ -61,7 +59,55 @@ object BinarySearchTreeIterator173ScalaExample {
         def hasNext(): Boolean = {
             size(root) >= kth
         }
+    }
 
+    /**
+      * 利用二叉搜索树的findKth实现这个功能
+      */
+    class BSTIterator2(_root: TreeNode) {
+
+        var root = _root
+        var min: TreeNode = null
+
+        /** @return the next smallest number */
+        def next(): Int = {
+            root = delMinest(root)
+            if (min == null) {
+                Int.MinValue
+            } else {
+                min.value
+            }
+        }
+
+        private def delMinest(root: TreeNode): TreeNode = {
+            if (root == null) {
+                return null
+            }
+            if (root.left == null) {
+                min = root
+                root.right
+            } else {
+                root.left = delMinest(root.left)
+                root
+            }
+        }
+
+        /** @return whether we have a next smallest number */
+        def hasNext(): Boolean = {
+            root != null
+        }
+
+    }
+
+    def main(args: Array[String]): Unit = {
+        val root = new TreeNode(3)
+        root.left = new TreeNode(1)
+        root.right = new TreeNode(4)
+        root.left.right = new TreeNode(2)
+        val iterator = new BSTIterator2(root)
+        while (iterator.hasNext()) {
+            println(iterator.next())
+        }
     }
 
 
