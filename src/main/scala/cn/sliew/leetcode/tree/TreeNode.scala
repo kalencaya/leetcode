@@ -1,5 +1,7 @@
 package cn.sliew.leetcode.tree
 
+import scala.collection.mutable.ListBuffer
+
 class TreeNode(var _value: Int) {
     var value: Int = _value
     var left: TreeNode = null
@@ -8,19 +10,27 @@ class TreeNode(var _value: Int) {
 
 object TreeNode {
 
-    def build(nums: Array[String]): TreeNode = {
-        val buffer = nums.toBuffer
-        buffer.insert(0, "null")
+    def build(ints: Array[Any]): TreeNode = {
+        if (ints == null || ints.length == 0) {
+            return null
+        }
+        val root: TreeNode = new TreeNode(ints(0).asInstanceOf[Int])
+        val list: ListBuffer[TreeNode] = new ListBuffer[TreeNode]()
+        list.append(root)
         var index = 1
-        val root = new TreeNode(Integer.parseInt(nums(index)))
-        while (index < nums.length) {
-            var leftIndex = 2 * index
-            var rightIndex = 2 * index + 1
-            if (leftIndex < nums.length && buffer(leftIndex) != "null") {
-                root.left = new TreeNode(Integer.parseInt(buffer(leftIndex)))
+        while (index < ints.length) {
+            val node = list.remove(0)
+            if (ints(index) != null) {
+                node.left = new TreeNode(ints(index).asInstanceOf[Int])
+                list.append(node.left)
             }
-            if (rightIndex < nums.length && buffer(rightIndex) != "null") {
-                root.right = new TreeNode(Integer.parseInt(buffer(rightIndex)))
+            index += 1
+            if (index < ints.length) {
+                if (ints(index) != null) {
+                    node.right = new TreeNode(ints(index).asInstanceOf[Int])
+                    list.append(node.right)
+                }
+                index += 1
             }
         }
         root

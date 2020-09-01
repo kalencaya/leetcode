@@ -21,10 +21,6 @@ object MinimumDepthofBinaryTree111ScalaExample {
     }
 
     def main(args: Array[String]): Unit = {
-        val nums = Array("1", "2")
-        val root = TreeNode.build(nums)
-        val result = minDepth(root)
-        println(result)
     }
 
 }

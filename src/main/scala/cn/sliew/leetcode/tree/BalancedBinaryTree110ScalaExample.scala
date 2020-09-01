@@ -23,10 +23,6 @@ object BalancedBinaryTree110ScalaExample {
 
 
     def main(args: Array[String]): Unit = {
-        val nums = Array("3", "9", "20", "null", "null", "15", "7")
-        val root = TreeNode.build(nums)
-        val result = isBalanced(root)
-        println(result)
     }
 
 }

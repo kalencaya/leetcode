@@ -32,11 +32,6 @@ object PathSum112ScalaExample {
     }
 
     def main(args: Array[String]): Unit = {
-        val nums = Array("5", "4", "8", "11", "null", "13", "4", "7", "2", "null", "null", "null", "1")
-        val root = TreeNode.build(nums)
-        val sum = 22
-        val result = hasPathSum(new TreeNode(1), 1)
-        println(result)
     }
 
 }
