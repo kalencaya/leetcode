@@ -1,7 +1,8 @@
 package cn.sliew.leetcode.greedy
 
 /**
-  * 134. Gas Station
+  * 134. Gas Station medium
+  * tags: Greedy
   */
 object GasStation134ScalaExample {
 
@@ -37,10 +38,47 @@ object GasStation134ScalaExample {
         }
     }
 
+    /**
+      * int start = gas.size()-1;
+      * int end = 0;
+      * int sum = gas[start] - cost[start];
+      * while (start > end) {
+      * if (sum >= 0) {
+      * sum += gas[end] - cost[end];
+      * ++end;
+      * }
+      * else {
+      * --start;
+      * sum += gas[start] - cost[start];
+      * }
+      * }
+      * return sum >= 0 ? start : -1;
+      *
+      */
+    def canCompleteCircuitGreedy(gas: Array[Int], cost: Array[Int]): Int = {
+        var start = 0
+        var end = gas.length - 1
+        var tank = gas(end) - cost(end)
+        while (end > start) {
+            if (tank >= 0) {
+                tank += gas(start) - gas(start)
+                start += 1
+            } else {
+                end -= 1
+                tank += gas(end) - gas(end)
+            }
+        }
+        if (tank > 0) {
+            end
+        } else {
+            -1
+        }
+    }
+
     def main(args: Array[String]): Unit = {
         val gas = Array(1, 2, 3, 4, 5)
         val cost = Array(3, 4, 5, 1, 2)
-        val result = canCompleteCircuit(gas, cost)
+        val result = canCompleteCircuitGreedy(gas, cost)
         println(result)
     }
 
