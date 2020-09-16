@@ -54,9 +54,9 @@ object GrayCode89ScalaExample {
 
     private def backtrack2(start: Int, n: Int, result: ListBuffer[Int], label: Array[Int]): Unit = {
         if (start == n) {
-            var c = 0
+            var c: Int = 0
             for (i <- 0 until n) {
-                val a = label(i) * math.pow(2, i)
+                val a: Int = label(i) * math.pow(2, i).toInt
                 c += a
             }
             result
