@@ -3,7 +3,7 @@ package cn.sliew.leetcode.tree
 /**
   * 235. Lowest Common Ancestor of a Binary Search Tree easy
   */
-object LowestCommonAncestorofaBinarySearchTree235 {
+object LowestCommonAncestorofaBinarySearchTree235ScalaExample {
 
     def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
         if (root.value == p.value) {
