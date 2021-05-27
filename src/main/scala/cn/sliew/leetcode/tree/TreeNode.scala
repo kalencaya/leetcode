@@ -14,7 +14,7 @@ object TreeNode {
         if (ints == null || ints.length == 0) {
             return null
         }
-        println(ints.mkString(","))
+//        println(ints.mkString(","))
         val root: TreeNode = new TreeNode(ints(0).asInstanceOf[Int])
         val list: ListBuffer[TreeNode] = new ListBuffer[TreeNode]()
         list.append(root)
