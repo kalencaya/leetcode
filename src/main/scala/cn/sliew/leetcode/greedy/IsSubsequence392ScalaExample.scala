@@ -5,7 +5,6 @@ package cn.sliew.leetcode.greedy
   */
 object IsSubsequence392ScalaExample {
 
-
     def isSubsequence(s: String, t: String): Boolean = {
 
         for (i <- 0 until t.length) {
@@ -15,5 +14,7 @@ object IsSubsequence392ScalaExample {
                 }
             }
         }
+
+        false
     }
 }
