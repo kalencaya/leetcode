@@ -32,6 +32,26 @@ object AddTwoNumbers2ScalaExample {
         sentinel.next
     }
 
+    def addTwoNumbersRecursive(l1: ListNode, l2: ListNode): ListNode = {
+        if (l1 == null && l2 == null){
+            return null
+        }
+        else if (l1 == null) {
+            return l2
+        }
+        else if (l2 == null) {
+            return l1
+        }
+
+        val value = l1.x + l2.x
+        val result = new ListNode(value % 10)
+        result.next = addTwoNumbersRecursive(l1.next, l2.next)
+        if (value >= 10) {
+            result.next = addTwoNumbersRecursive(result.next, new ListNode(1))
+        }
+        result
+    }
+
     def main(args: Array[String]): Unit = {
         val l1 = new ListNode(0)
         l1.next = new ListNode(8)
@@ -52,7 +72,7 @@ object AddTwoNumbers2ScalaExample {
         l2.next.next.next.next.next.next.next = new ListNode(9)
         l2.next.next.next.next.next.next.next.next = new ListNode(7)
 
-        val result = addTwoNumbers(l1, l2)
+        val result = addTwoNumbersRecursive(l1, l2)
 
         var temp = result
         while (temp != null) {
