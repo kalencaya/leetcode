@@ -8,6 +8,14 @@ import cn.sliew.leetcode.ListNode
 object RemoveLinkedListElements203ScalaExample {
 
     def removeElements(head: ListNode, value: Int): ListNode = {
+        if (head == null) {
+            return head
+        }
+
+        if (head.x == value) {
+            return removeElements(head.next, value)
+        }
+        head.next = removeElements(head.next, value)
         head
     }
 
