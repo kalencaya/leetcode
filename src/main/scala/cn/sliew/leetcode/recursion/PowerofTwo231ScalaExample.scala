@@ -13,9 +13,21 @@ object PowerofTwo231ScalaExample {
         }
     }
 
+    def isPowerOfTwo2(n: Int): Boolean = {
+        if (n <= 0) {
+            return false
+        }
+
+        var temp = n
+        while (temp > 1 && (temp % 2 == 0)) {
+            temp = temp >>> 1
+        }
+        temp == 1
+    }
+
     def main(args: Array[String]): Unit = {
         val n = 3
-        val result = isPowerOfTwo(n)
+        val result = isPowerOfTwo2(n)
 
         println(result)
     }
