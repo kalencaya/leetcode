@@ -2,8 +2,6 @@ package cn.sliew.leetcode.recursion
 
 import cn.sliew.leetcode.ListNode
 
-import scala.collection.mutable
-
 /**
   * 234. Palindrome Linked List easy
   */
@@ -17,14 +15,25 @@ object PalindromeLinkedList234ScalaExample {
             return head.x == head.next.x
         }
 
-        val stack = new mutable.Stack()
-
-        false
-
+        val first = head
+        val last = removeLast(first)
+        if (first.x == last.x) {
+            isPalindrome(first.next)
+        } else {
+            false
+        }
     }
 
     private def removeLast(head: ListNode): ListNode = {
+        var first = head
+        var next = head.next
+        while (next.next != null) {
+            first = next
+            next = next.next
+        }
+        first.next = null
 
+        next
     }
 
     def main(args: Array[String]): Unit = {
