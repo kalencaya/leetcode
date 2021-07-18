@@ -9,55 +9,51 @@ import scala.collection.mutable.ListBuffer
   */
 object DifferentWaystoAddParentheses241ScalaExample {
 
-  def diffWaysToCompute(expression: String): List[Int] = {
-    if (expression == null || expression.length == 0) {
-      return List()
+    def diffWaysToCompute(expression: String): List[Int] = {
+        if (expression == null || expression.length == 0) {
+            return List()
+        }
+        var result = new ListBuffer[Int]()
+        val charArray = expression.toCharArray
+        val option = charArray.find(char => !Character.isDigit(char))
+        if (option.isEmpty) {
+            return List(Integer.parseInt(expression))
+        }
+        for (i <- 0 until charArray.length; if !Character.isDigit(charArray(i))) {
+            val left = diffWaysToCompute(expression.substring(0, i))
+            val right = diffWaysToCompute(expression.substring(i + 1))
+            result ++= quadrature(left, right, charArray(i))
+        }
+        result.toList
     }
 
-    val option = evelate(expression)
-    if (option.isDefined) {
-      return List(option.get)
+    private def quadrature(left: List[Int], right: List[Int], operator: Char): List[Int] = {
+        if (left == null || left.isEmpty) {
+            return right
+        }
+        if (right == null || right.isEmpty) {
+            return left
+        }
+        val result = new ListBuffer[Int]()
+        for (numLeft <- left) {
+            for (numRight <- right) {
+                if (operator == '-') {
+                    result += numLeft - numRight
+                } else if (operator == '+') {
+                    result += numLeft + numRight
+                } else if (operator == '*') {
+                    result += numLeft * numRight
+                }
+            }
+        }
+        result.toList
     }
 
-    val result = new ListBuffer[Int]
-    val sb = new StringBuilder
-    for (index <- 0 until expression.length) {
-      // 处理
-      println(index)
-      // 不处理
+    def main(args: Array[String]): Unit = {
+        val expression = "1+2+3"
+        val result = diffWaysToCompute(expression)
+        println(result.mkString("[", ",", "]"))
     }
-
-    result.toList
-  }
-
-  private def evelate(expression: String): Option[Int] = {
-    val strings = expression.split("-|\\+|\\*")
-    if (strings == null || strings.length != 2) {
-      return None
-    }
-
-    val subtract = expression.indexOf("-")
-    val add = expression.indexOf("+")
-    val multi = expression.indexOf("*")
-
-    if (subtract != -1 && add == -1 && multi == -1) {
-      return Some(Integer.parseInt(strings(0)) - Integer.parseInt(strings(1)))
-    }
-    if (subtract == -1 && add != -1 && multi == -1) {
-      return Some(Integer.parseInt(strings(0)) + Integer.parseInt(strings(1)))
-    }
-    if (subtract == -1 && add == -1 && multi != -1) {
-      return Some(Integer.parseInt(strings(0)) * Integer.parseInt(strings(1)))
-    }
-
-    None
-  }
-
-  def main(args: Array[String]): Unit = {
-    val expression = "1+2+3"
-    val result = diffWaysToCompute(expression)
-    println(result.mkString("[", ",", "]"))
-  }
 
 
 }
