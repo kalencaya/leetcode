@@ -8,19 +8,18 @@ object CountGoodNumbers1922ScalaExample {
     private val mod = BigInt(math.pow(10, 9).toInt + 7)
 
     def countGoodNumbers(n: Long): Int = {
-        recurse(n) % mod toInt
-    }
-
-    private def recurse(n: Long): BigInt = {
         if (n == 1) {
             return 5
         }
-        val previous = recurse(n - 1)
-        if (n % 2 == 0) {
-            previous * 4
-        } else {
-            previous * 5
+        var result = BigInt(5)
+        for (i <- 1 until n) {
+            if (i % 2 == 0) {
+                result = result * 4
+            } else {
+                result = result * 5
+            }
         }
+        result % mod toInt
     }
 
     def main(args: Array[String]): Unit = {
