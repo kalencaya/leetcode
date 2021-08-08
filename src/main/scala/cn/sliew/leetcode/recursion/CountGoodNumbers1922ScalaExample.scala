@@ -12,7 +12,7 @@ object CountGoodNumbers1922ScalaExample {
             return 5
         }
         var result = BigInt(5)
-        for (i <- 1 until n) {
+        for (i <- 1L until n) {
             if (i % 2 == 0) {
                 result = result * 4
             } else {
