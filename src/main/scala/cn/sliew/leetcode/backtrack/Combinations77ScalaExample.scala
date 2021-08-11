@@ -10,20 +10,21 @@ import scala.collection.mutable.ListBuffer
 object Combinations77ScalaExample {
 
     def combine(n: Int, k: Int): List[List[Int]] = {
-        val nums = (1 to n).toArray
+        val nums = (1 to n) toBuffer
         val result = new ListBuffer[List[Int]]()
-        backtrack(0, nums.length, nums, k, new ListBuffer[Int], result)
+        val temp = new ListBuffer[Int]()
+        backtrack(temp, k, 0, nums, result)
         result.toList
     }
 
-    private def backtrack(start: Int, end: Int, nums: Array[Int], left: Int, temp: mutable.Buffer[Int], result: mutable.Buffer[List[Int]]): Unit = {
+    private def backtrack(temp: ListBuffer[Int], left: Int, start: Int, nums: mutable.Buffer[Int], result: ListBuffer[List[Int]]): Unit = {
         if (left == 0) {
             result += temp.toList
             return
         }
-        for (i <- start until end) {
+        for (i <- start until nums.length) {
             temp += nums(i)
-            backtrack(i + 1, end, nums, left - 1, temp, result)
+            backtrack(temp, left - 1, i + 1, nums, result)
             temp -= nums(i)
         }
     }
