@@ -12,7 +12,6 @@ class CombinationIterator(_characters: String, _combinationLength: Int) {
     private def allSubStrs(): List[String] = {
         val result = new ListBuffer[String]()
         backtrack(new StringBuilder(), length, 0, result)
-        println(result.mkString(","))
         result.toList
     }
 
@@ -23,7 +22,7 @@ class CombinationIterator(_characters: String, _combinationLength: Int) {
         }
         for (i <- start until chars.length) {
             temp.append(chars(i))
-            backtrack(temp, left - 1, start + 1, result)
+            backtrack(temp, left - 1, i + 1, result)
             temp.deleteCharAt(temp.length - 1)
         }
     }

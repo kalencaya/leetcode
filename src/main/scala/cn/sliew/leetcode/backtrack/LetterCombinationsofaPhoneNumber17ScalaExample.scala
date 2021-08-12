@@ -1,6 +1,5 @@
 package cn.sliew.leetcode.backtrack
 
-import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -9,42 +8,44 @@ import scala.collection.mutable.ListBuffer
   */
 object LetterCombinationsofaPhoneNumber17ScalaExample {
 
+    val mapping = Map(
+        '2' -> List('a', 'b', 'c'),
+        '3' -> List('d', 'e', 'f'),
+        '4' -> List('g', 'h', 'i'),
+        '5' -> List('j', 'k', 'l'),
+        '6' -> List('m', 'n', 'o'),
+        '7' -> List('p', 'q', 'r', 's'),
+        '8' -> List('t', 'u', 'v'),
+        '9' -> List('w', 'x', 'y', 'z'))
+
     def letterCombinations(digits: String): List[String] = {
         if (digits.isEmpty) {
             return List()
         }
-        val result: mutable.Buffer[String] = new ListBuffer[String]()
-        backtrack(digits, 0, new ListBuffer[Char], result)
-        result.toList
 
+        val result =new  ListBuffer[String]()
+        backtrack(new StringBuilder(), 0, digits, result)
+        result.toList
     }
 
-    private def backtrack(digits: String, index: Int, temp: mutable.Buffer[Char], result: mutable.Buffer[String]): Unit = {
-        if (index == digits.length) {
-            result += new String(temp.toArray)
+    private def backtrack(temp:StringBuilder, start: Int, digits: String, result : ListBuffer[String]): Unit = {
+        if (start == digits.length) {
+            result += temp.toString
             return
         }
-        for (letter <- mapping.get(digits(index)).get) {
-            temp.insert(index, letter)
-            backtrack(digits, index + 1, temp, result)
-            temp.remove(index)
-        }
-    }
 
-    val mapping: mutable.HashMap[Char, List[Char]] = new mutable.HashMap[Char, List[Char]]()
-    mapping.put('2', List('a', 'b', 'c'))
-    mapping.put('3', List('d', 'e', 'f'))
-    mapping.put('4', List('g', 'h', 'i'))
-    mapping.put('5', List('j', 'k', 'l'))
-    mapping.put('6', List('m', 'n', 'o'))
-    mapping.put('7', List('p', 'q', 'r', 's'))
-    mapping.put('8', List('t', 'u', 'v'))
-    mapping.put('9', List('w', 'x', 'y', 'z'))
+        for (letters <- mapping.get(digits.charAt(start)); letter <- letters) {
+            temp.append(letter)
+            backtrack(temp, start + 1, digits, result)
+            temp.deleteCharAt(temp.length - 1)
+        }
+
+    }
 
 
     def main(args: Array[String]): Unit = {
         val digits = "23"
         val result = letterCombinations(digits)
-        result.foreach(println)
+        println(result.mkString("[", ",", "]"))
     }
 }
