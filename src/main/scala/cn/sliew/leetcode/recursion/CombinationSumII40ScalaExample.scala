@@ -19,11 +19,14 @@ object CombinationSumII40ScalaExample {
         }
 
         val result = new ListBuffer[List[Int]]()
-        backtrack(new ListBuffer[Int](), target, 0, countBucket.toList, result)
+        backtrack(new ListBuffer[Int](), target, 0, countBucket.toBuffer, result)
         result.toList
     }
 
-    private def backtrack(temp: ListBuffer[Int], left: Int, start: Int, candidates: List[(Int, Int)], result: ListBuffer[List[Int]]): Unit = {
+    private def backtrack(temp: ListBuffer[Int], left: Int, start: Int, candidates: mutable.Buffer[(Int, Int)], result: ListBuffer[List[Int]]): Unit = {
+        if (left < 0) {
+            return
+        }
         if (left == 0) {
             result += temp.toList
             return
@@ -33,7 +36,9 @@ object CombinationSumII40ScalaExample {
             val candidate = tuple._1
             val count = tuple._2
             temp += candidate
-            backtrack(temp, left - candidate, i, candidates.updated(i, (candidate, count - 1)), result)
+            candidates.update(i, (candidate, count - 1))
+            backtrack(temp, left - candidate, i, candidates, result)
+            candidates.update(i, (candidate, count))
             temp.remove(temp.length - 1)
         }
     }
