@@ -25,36 +25,24 @@ object CombinationSumII40ScalaExample {
 
     private def backtrack(temp: ListBuffer[Int], left: Int, start: Int, candidates: List[(Int, Int)], result: ListBuffer[List[Int]]): Unit = {
         if (left == 0) {
-            val combination = temp.toList
-            if (result.contains(combination) == false) {
-                result += combination
-            }
+            result += temp.toList
             return
         }
-        var ints = temp
-        for (i <- start until candidates.length) {
+        for (i <- start until candidates.length; if candidates(i)._2 > 0) {
             val tuple = candidates(i)
-            for (count <- 0 to tuple._2; if left >= count * tuple._1) {
-                val toAdd = List.fill(count)(tuple._1)
-                ints = ints ++ toAdd
-                backtrack(ints, left - count * tuple._1, i + 1, candidates, result)
-                ints = ints -- ints
-            }
+            val candidate = tuple._1
+            val count = tuple._2
+            temp += candidate
+            backtrack(temp, left - candidate, i, candidates.updated(i, (candidate, count - 1)), result)
+            temp.remove(temp.length - 1)
         }
     }
 
     def main(args: Array[String]): Unit = {
-        val candidates = Array(1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1)
+        val candidates = Array(14,6,25,9,30,20,33,34,28,30,16,12,31,9,9,12,34,16,25,32,8,7,30,12,33,20,21,29,24,17,27,34,11,17,30,6,32,21,27,17,16,8,24,12,12,28,11,33,10,32,22,13,34,18,12)
 //        val candidates = Array(1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1)
-        val target = 30
+        val target = 27
         val result = combinationSum2(candidates, target)
         result.foreach(list => println(list.mkString("[", ",", "]")))
-
-//        val ints1 = List.fill(3)(1)
-//        val ints2 = List.fill(3)(2)
-//        val ints = ints1 ++ ints2
-//        println(ints1.mkString(","))
-//        println(ints2.mkString(","))
-//        println(ints.mkString(","))
     }
 }
