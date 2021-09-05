@@ -10,30 +10,25 @@ object LongestIncreasingSubsequence300ScalaExample {
             return 1
         }
 
-//        val dp = Array.ofDim[Int](nums.length, nums.length)
-
-        val dp = new Array[(Int, Int)](nums.length)
-//        dfs(dp, nums(0), 1, nums)
-        1
+        val dp = new Array[Int](nums.length)
+        dfs(dp, nums(0), 1, nums)
     }
 
-    private def dfs(dp: Array[(Int, Int)], num: Int, start: Int, nums: Array[Int]): Int = {
+    private def dfs(dp: Array[Int], num: Int, start: Int, nums: Array[Int]): Int = {
         if (start == nums.length) {
             return 0
         }
 
-        if (dp(start) != null) {
-            return dp(start)._2
+        if (dp(start) != 0) {
+            return dp(start)
         }
-
-//        if (num < nums(start)) {
-//            dp(start) = 1 + dfs(dp, nums(start), start + 1, nums)
-//        } else {
-//            dp(start) = 1 + dfs(dp, num, start + 1, nums)
-//        }
-
-        dp(start)
-        num
+        var maxLength = 0
+        for (i <- start until nums.length; if nums(i) > num) {
+            val length = 1 + dfs(dp, dp(start), i + 1, nums)
+            maxLength = math.max(length, maxLength)
+        }
+        dp(start) = maxLength
+        maxLength
     }
 
     def main(args: Array[String]): Unit = {
