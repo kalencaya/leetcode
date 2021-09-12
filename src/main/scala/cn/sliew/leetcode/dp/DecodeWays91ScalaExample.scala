@@ -46,7 +46,7 @@ object DecodeWays91ScalaExample {
     }
 
     private def recurse(dp: mutable.HashMap[Int, Int], start: Int, s: String): Int = {
-
+        0
     }
 
     private def isValid(digits: String): Boolean = {
