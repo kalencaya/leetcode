@@ -36,17 +36,43 @@ object DecodeWays91ScalaExample {
     map += 26 -> 'Z'
 
     def numDecodings(s: String): Int = {
-        val dp = new mutable.HashMap[Int, Int]()
-
-        for (i <- 0 until s.length) {
-
-        }
-
-        0
+        val dp = new mutable.HashMap[String, Int]()
+        recurse(dp, s)
     }
 
-    private def recurse(dp: mutable.HashMap[Int, Int], start: Int, s: String): Int = {
-        0
+    private def recurse(dp: mutable.HashMap[String, Int], s: String): Int = {
+        if (dp.contains(s)) {
+            return dp.get(s).get
+        }
+
+        if (s.length == 0 || s.startsWith("0")) {
+            dp.put(s, 0)
+        } else if (s.length == 1 && isValid(s)) {
+            dp.put(s, 1)
+        } else if (s.length == 2) {
+            var count = 0
+            if (isValid(s.substring(0, 1)) && isValid(s.substring(1))) {
+                count +=1
+            }
+            if (isValid(s)) {
+                count += 1
+            }
+            dp.put(s, count)
+        }
+        else {
+            var count = 0
+            val digit1 = s.substring(0, 1)
+            if (isValid(digit1)) {
+                count += recurse(dp, s.substring(1))
+            }
+
+            val digit2 = s.substring(0, 2)
+            if (isValid(digit2)) {
+                count += recurse(dp, s.substring(2))
+            }
+            dp.put(s, count)
+        }
+        dp.get(s).get
     }
 
     private def isValid(digits: String): Boolean = {
@@ -54,7 +80,7 @@ object DecodeWays91ScalaExample {
     }
 
     def main(args: Array[String]): Unit = {
-        val s = "12"
+        val s = "0"
         val result = numDecodings(s)
         println(result)
     }
