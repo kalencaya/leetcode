@@ -8,7 +8,15 @@ import scala.collection.mutable
 object WordBreak139ScalaExample {
 
     def wordBreak(s: String, wordDict: List[String]): Boolean = {
-        recurse(new mutable.HashMap[String, Boolean](), s, wordDict)
+        val dp = new Array[Boolean](s.length)
+        for (i <- 0 until s.length) {
+            if (i == 0) {
+                dp(i) = true
+            } else {
+
+            }
+        }
+        false
     }
 
     private def recurse(dp: mutable.HashMap[String, Boolean], s: String, wordDict: List[String]): Boolean = {
