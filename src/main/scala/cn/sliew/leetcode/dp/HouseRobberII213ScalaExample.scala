@@ -6,47 +6,35 @@ package cn.sliew.leetcode.dp
 object HouseRobberII213ScalaExample {
 
     def rob(nums: Array[Int]): Int = {
-
-        val dp = new Array[Int](nums.length + 1)
-        for (i <- 0 until dp.length) {
-            dp(i) = -1
-        }
-        dp(0) = 0
-        var max = 0
-        dp(1) = nums(0)
-        max = math.max(max, recurse(dp, true, nums.length - 2, nums))
-        dp(1) = 0
-        max = math.max(max, recurse(dp, false, nums.length - 1, nums))
-        max
-    }
-
-    private def recurse(dp: Array[Int], first: Boolean, start: Int, nums: Array[Int]): Int = {
-        if (start < 0) {
+        if (nums.length == 0) {
             return 0
         }
-
-        if (dp(start) != -1) {
-            return dp(start)
+        if (nums.length < 2) {
+            return nums(0)
         }
 
-        var max = 0
-        if (start == nums.length - 1) {
-            if (!first) {
-                max =  recurse(dp, first, start - 2, nums) + nums(start)
-            } else {
-                max = recurse(dp, first, start - 1, nums)
-            }
-        } else {
-            max = math.max(max, recurse(dp, first, start - 2, nums) + nums(start))
-            max = math.max(max, recurse(dp, first, start - 1, nums))
+        val dp1 = new Array[Int](nums.length + 1)
+        val dp2 = new Array[Int](nums.length + 1)
+        for (i <- 0 until dp1.length) {
+            dp1(i) = -1
+        }
+        for (i <- 0 until dp2.length) {
+            dp2(i) = -1
         }
 
-        dp(start) = max
-        max
+        dp1(0) = 0
+        dp1(1) = nums(0)
+        dp2(0) = 0
+        dp2(1) = 0
+        for (i <- 2 to nums.length) {
+            dp1(i) = math.max(dp1(i - 1), dp1(i - 2) + nums(i - 1))
+            dp2(i) = math.max(dp2(i - 1), dp2(i - 2) + nums(i - 1))
+        }
+        math.max(dp1(nums.length - 1), dp2(nums.length))
     }
 
     def main(args: Array[String]): Unit = {
-        val nums = Array(2,3,2)
+        val nums = Array(1, 2, 3)
         val result = rob(nums)
         println(result)
     }
