@@ -12,7 +12,8 @@ object LongestPalindromicSubstring5ScalaExample {
             val length1 = expendAroundCenter(s, i, i)
             val length2 = expendAroundCenter(s, i, i + 1)
             val newLength = math.max(length1, length2)
-            if (newLength > `end` - start) {
+            val oldLength = `end` - start + 1
+            if (newLength > oldLength) {
                 start = i - (newLength - 1) / 2
                 `end` = i + newLength / 2
             }
