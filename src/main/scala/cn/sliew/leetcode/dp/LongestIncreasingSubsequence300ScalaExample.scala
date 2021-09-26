@@ -11,6 +11,13 @@ object LongestIncreasingSubsequence300ScalaExample {
         }
         var maxLength = 0
 
+        val dp = new Array[Int](nums.length + 1)
+
+        for (i <- 1 to nums.length) {
+            val current = nums(i - 1)
+            dp(i) =
+        }
+
 
 
 
