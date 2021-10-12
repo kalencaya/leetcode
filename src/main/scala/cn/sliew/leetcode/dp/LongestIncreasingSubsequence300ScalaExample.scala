@@ -15,7 +15,7 @@ object LongestIncreasingSubsequence300ScalaExample {
 
         for (i <- 1 to nums.length) {
             val current = nums(i - 1)
-            dp(i) =
+//            dp(i) =
         }
 
 
