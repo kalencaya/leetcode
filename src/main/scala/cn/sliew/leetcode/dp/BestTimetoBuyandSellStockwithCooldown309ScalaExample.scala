@@ -17,7 +17,6 @@ object BestTimetoBuyandSellStockwithCooldown309ScalaExample {
 
         dfs(mem, None, 0, prices)
 
-
         mem(mem.length - 1)
     }
 
