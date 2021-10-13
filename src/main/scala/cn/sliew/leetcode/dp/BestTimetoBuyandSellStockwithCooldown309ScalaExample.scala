@@ -22,13 +22,16 @@ object BestTimetoBuyandSellStockwithCooldown309ScalaExample {
     }
 
     private def dfs(mem: Array[Int], buy: Option[Int], current: Int, prices: Array[Int]): Int = {
+        if (current >= prices.length) {
+            return 0
+        }
         if (mem(current) != -1) {
             return mem(current)
         }
 
         var profit = 0
         if (buy.isDefined) {
-            val selled = dfs(mem, None, current + 2, prices)
+            val selled = dfs(mem, None, current + 2, prices) + (prices(current) - prices(buy.get))
             val notSelled = dfs(mem, buy, current + 1, prices)
             profit = math.max(selled, notSelled)
         } else {
